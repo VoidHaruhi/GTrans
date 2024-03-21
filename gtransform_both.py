@@ -2,6 +2,7 @@ import numpy as np
 from models import *
 import torch.nn.functional as F
 import torch
+import torch.nn as nn
 import deeprobust.graph.utils as utils
 from torch.nn.parameter import Parameter
 from tqdm import tqdm
@@ -10,10 +11,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import torch.optim as optim
 from copy import deepcopy
-from utils import reset_args
+from utils import reset_args, entropy_loss
 from gtransform_adj import EdgeAgent
 from torch_geometric.utils import to_scipy_sparse_matrix, from_scipy_sparse_matrix, dropout_adj, is_undirected, to_undirected
 from gtransform_adj import *
+from graph_prompt import *
+
+class GraphPrompt(nn.Module):
+    def __init__(self, model, prompt):
+        self.prompt = prompt
+        self.gnn = model
+    def forward(self, x, edge_index):
+        x = self.prompt(x)
+        output = self.gnn(x, edge_index)
+        return output
 
 class GraphAgent(EdgeAgent):
 
@@ -21,8 +32,54 @@ class GraphAgent(EdgeAgent):
         self.device = 'cuda'
         self.args = args
         self.data_all = data_all
-        self.model = self.pretrain_model()
+        gnn_model = self.pretrain_model() # pretrain the GNN on train graph
+        if args.mode == 0:
+            self.model = gnn_model
+        else:
+            prompt = GPFplusAtt(args.n_feat, args.p_num).to(self.device)
+            self.model = GraphPrompt(gnn_model, prompt).to(self.device)
+    def prompt_tuning(self, data):
+        args = self.args
+        print('Prompt Tuning ...')
+        if not hasattr(self, 'model_pre'):
+            self.model_pre = self.model
+        self.model = deepcopy(self.model_pre)
+        assert args.debug == 1 or args.debug == 2
+        edge_index = data.graph['edge_index'].to(self.device)
+        feat, labels = data.graph['node_feat'].to(self.device), data.label.to(self.device) #.squeeze()
+        self.feat, self.data = feat, data
+        model = self.model
 
+        for param in model.gnn.parameters():
+            param.requires_grad = False # Fix GNN paramenters
+        for param in model.prompt.parameters():
+            param.requires_grad = True # Tune prompt parameters
+        args.loss = 'entropy'
+        args.lr = args.lr_feat
+        optimizer = optim.Adam(model.prompt.parameters(), lr=args.lr, weight_decay=0)
+
+        for i in range(args.epochs):
+            optimizer.zero_grad()
+            pred = model(feat, edge_index)
+            loss = self.test_time_prompt_loss(pred, feat, edge_index)
+            loss.backward()
+            optimizer.step()
+            if i == 0:
+                print(f'Epoch {i}: {loss}')
+
+        pred = model(feat, edge_index)
+        loss = self.test_time_prompt_loss(pred, feat, edge_index)
+        print(f'Epoch {i}: {loss}')
+        print('Test:')
+
+        if args.dataset == 'elliptic':
+            return self.evaluate_single(model, pred, labels, data), pred[data.mask], labels[data.mask]
+        else:
+            return self.evaluate_single(model, pred, labels, data), pred, labels
+    
+    def test_time_prompt_loss(pred, feat, edge_index):
+        return entropy_loss(pred)
+    
     def learn_graph(self, data):
         print('====learning on this graph===')
         args = self.args

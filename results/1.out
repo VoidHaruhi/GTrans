@@ -1,0 +1,179 @@
+/home/yy/tta/GTrans/gtransform_adj.py:136: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  edge_index_id = (2*self.n - row-1)*row//2 + col - row -1 # // is important to get the correct result
+/home/yy/tta/GTrans/gtransform_adj.py:341: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  + (n - row_idx) * ((n - row_idx) - 1) // 2
+===========
+Namespace(dataset='cora', debug=1, dropout=0, epochs=5, existing_space=1, finetune=0, gpu_id=0, hidden=32, loop_adj=1, loop_feat=4, loss='LC', lr=0.001, lr_adj=0.1, lr_feat=0.001, margin=-1, model='GCN', nlayers=2, normalize_features=True, ood=1, ratio=0.005, seed=0, strategy='dropedge', tent=0, test_val=0, tune=0, weight_decay=0.001, with_bn=1)
+Namespace(K=3, T=1, beta=1.0, cached=False, cpu=False, data_dir='../data', dataset='cora', device=0, directed=False, display_step=100, dropout=0.0, epochs=200, gat_heads=4, gcnii_alpha=0.1, gcnii_lamda=1.0, gnn='gcn', gnn_gen='gcn', gpr_alpha=0.1, hidden_channels=32, lp_alpha=0.1, lr=0.01, lr_a=0.005, method='erm', no_bn=False, num_layers=2, num_sample=5, rocauc=False, runs=5, sub_dataset='', weight_decay=0.001)
+Train num nodes 2708 | num classes 9 | num node feats 1443
+Val num nodes 2708 | num classes 9 | num node feats 1443
+Test 0 num nodes 2708 | num classes 9 | num node feats 1443
+Test 1 num nodes 2708 | num classes 9 | num node feats 1443
+Test 2 num nodes 2708 | num classes 9 | num node feats 1443
+Test 3 num nodes 2708 | num classes 9 | num node feats 1443
+Test 4 num nodes 2708 | num classes 9 | num node feats 1443
+Test 5 num nodes 2708 | num classes 9 | num node feats 1443
+Test 6 num nodes 2708 | num classes 9 | num node feats 1443
+Test 7 num nodes 2708 | num classes 9 | num node feats 1443
+GCN(
+  (layers): ModuleList(
+    (0): GCNConv(1443, 32)
+    (1): GCNConv(32, 9)
+  )
+  (bns): ModuleList(
+    (0): BatchNorm1d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  )
+)
+Test accs: [0.8899556868537666, 0.9364844903988183, 0.9564254062038404, 0.8268094534711965, 0.9180206794682423, 0.9387001477104875, 0.9405465288035451, 0.896602658788774]
+flatten test: 0.9129431314623339
+====learning on this graph===
+n_perturbations: 26
+  0%|          | 0/1 [00:00<?, ?it/s]/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+100%|██████████| 1/1 [00:00<00:00,  7.17it/s]100%|██████████| 1/1 [00:00<00:00,  7.15it/s]
+/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+/home/yy/tta/GTrans/gtransform_adj.py:136: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  edge_index_id = (2*self.n - row-1)*row//2 + col - row -1 # // is important to get the correct result
+/home/yy/tta/GTrans/gtransform_adj.py:341: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  + (n - row_idx) * ((n - row_idx) - 1) // 2
+Epoch 0, Loop Feat 0: -0.6163877248764038
+Epoch 0, Loop Adj 0: -0.7260294556617737
+Epoch 1: -0.7260294556617737
+Mem used: 142MB
+best_loss: tensor(-0.8426, device='cuda:0')
+final loss: -0.7991308569908142
+Test:
+Test: 0.9409158050221565
+====learning on this graph===
+n_perturbations: 26
+  0%|          | 0/1 [00:00<?, ?it/s]/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+100%|██████████| 1/1 [00:00<00:00, 10.36it/s]
+/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+/home/yy/tta/GTrans/gtransform_adj.py:136: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  edge_index_id = (2*self.n - row-1)*row//2 + col - row -1 # // is important to get the correct result
+/home/yy/tta/GTrans/gtransform_adj.py:341: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  + (n - row_idx) * ((n - row_idx) - 1) // 2
+Epoch 0, Loop Feat 0: -0.6494612097740173
+Epoch 0, Loop Adj 0: -0.7258248925209045
+Epoch 1: -0.7258248925209045
+Mem used: -4MB
+best_loss: tensor(-0.7219, device='cuda:0')
+final loss: -0.7165160179138184
+Test:
+Test: 0.948301329394387
+====learning on this graph===
+n_perturbations: 26
+  0%|          | 0/1 [00:00<?, ?it/s]/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+100%|██████████| 1/1 [00:00<00:00,  8.88it/s]100%|██████████| 1/1 [00:00<00:00,  8.84it/s]
+/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+/home/yy/tta/GTrans/gtransform_adj.py:136: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  edge_index_id = (2*self.n - row-1)*row//2 + col - row -1 # // is important to get the correct result
+/home/yy/tta/GTrans/gtransform_adj.py:341: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  + (n - row_idx) * ((n - row_idx) - 1) // 2
+Epoch 0, Loop Feat 0: -0.6068440079689026
+Epoch 0, Loop Adj 0: -0.700348973274231
+Epoch 1: -0.700348973274231
+Mem used: 2MB
+best_loss: tensor(-0.6958, device='cuda:0')
+final loss: -0.6947969198226929
+Test:
+Test: 0.9508862629246676
+====learning on this graph===
+n_perturbations: 26
+  0%|          | 0/1 [00:00<?, ?it/s]/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+100%|██████████| 1/1 [00:00<00:00,  9.56it/s]100%|██████████| 1/1 [00:00<00:00,  9.50it/s]
+/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+/home/yy/tta/GTrans/gtransform_adj.py:136: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  edge_index_id = (2*self.n - row-1)*row//2 + col - row -1 # // is important to get the correct result
+/home/yy/tta/GTrans/gtransform_adj.py:341: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  + (n - row_idx) * ((n - row_idx) - 1) // 2
+Epoch 0, Loop Feat 0: -0.6004542112350464
+Epoch 0, Loop Adj 0: -0.7128099203109741
+Epoch 1: -0.7128099203109741
+Mem used: 0MB
+best_loss: tensor(-0.7098, device='cuda:0')
+final loss: -0.7053666114807129
+Test:
+Test: 0.9302067946824224
+====learning on this graph===
+n_perturbations: 26
+  0%|          | 0/1 [00:00<?, ?it/s]/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+100%|██████████| 1/1 [00:00<00:00,  8.57it/s]100%|██████████| 1/1 [00:00<00:00,  8.53it/s]
+/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+/home/yy/tta/GTrans/gtransform_adj.py:136: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  edge_index_id = (2*self.n - row-1)*row//2 + col - row -1 # // is important to get the correct result
+/home/yy/tta/GTrans/gtransform_adj.py:341: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  + (n - row_idx) * ((n - row_idx) - 1) // 2
+Epoch 0, Loop Feat 0: -0.539282500743866
+Epoch 0, Loop Adj 0: -0.6641070246696472
+Epoch 1: -0.6641070246696472
+Mem used: 0MB
+best_loss: tensor(-0.6593, device='cuda:0')
+best_loss: tensor(-0.6595, device='cuda:0')
+final loss: -0.6580774784088135
+Test:
+Test: 0.948301329394387
+====learning on this graph===
+n_perturbations: 26
+  0%|          | 0/1 [00:00<?, ?it/s]/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+100%|██████████| 1/1 [00:00<00:00, 10.05it/s]
+/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+/home/yy/tta/GTrans/gtransform_adj.py:136: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  edge_index_id = (2*self.n - row-1)*row//2 + col - row -1 # // is important to get the correct result
+/home/yy/tta/GTrans/gtransform_adj.py:341: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  + (n - row_idx) * ((n - row_idx) - 1) // 2
+Epoch 0, Loop Feat 0: -0.6012059450149536
+Epoch 0, Loop Adj 0: -0.6778129935264587
+Epoch 1: -0.6778129935264587
+Mem used: 0MB
+best_loss: tensor(-0.6720, device='cuda:0')
+final loss: -0.6696848273277283
+Test:
+Test: 0.946824224519941
+====learning on this graph===
+n_perturbations: 26
+  0%|          | 0/1 [00:00<?, ?it/s]/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+100%|██████████| 1/1 [00:00<00:00,  9.96it/s]100%|██████████| 1/1 [00:00<00:00,  9.92it/s]
+/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+/home/yy/tta/GTrans/gtransform_adj.py:136: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  edge_index_id = (2*self.n - row-1)*row//2 + col - row -1 # // is important to get the correct result
+/home/yy/tta/GTrans/gtransform_adj.py:341: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  + (n - row_idx) * ((n - row_idx) - 1) // 2
+Epoch 0, Loop Feat 0: -0.610069751739502
+Epoch 0, Loop Adj 0: -0.6906144022941589
+Epoch 1: -0.6906144022941589
+Mem used: 0MB
+best_loss: tensor(-0.6862, device='cuda:0')
+final loss: -0.6846520900726318
+Test:
+Test: 0.94903988183161
+====learning on this graph===
+n_perturbations: 26
+  0%|          | 0/1 [00:00<?, ?it/s]/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+100%|██████████| 1/1 [00:00<00:00,  8.10it/s]100%|██████████| 1/1 [00:00<00:00,  8.08it/s]
+/home/yy/miniconda3/envs/torch1121/lib/python3.8/site-packages/torch_geometric/deprecation.py:22: UserWarning: 'dropout_adj' is deprecated, use 'dropout_edge' instead
+  warnings.warn(out)
+Epoch 0, Loop Feat 0: -0.6080631017684937
+Epoch 0, Loop Adj 0: -0.7147907018661499
+Epoch 1: -0.7147907018661499
+Mem used: 0MB
+best_loss: tensor(-0.7115, device='cuda:0')
+final loss: -0.7087735533714294
+Test:
+Test: 0.9464549483013294
+Results on test sets: [0.9409158050221565, 0.948301329394387, 0.9508862629246676, 0.9302067946824224, 0.948301329394387, 0.946824224519941, 0.94903988183161, 0.9464549483013294]
+Mean result on test sets: 0.9451163220088626

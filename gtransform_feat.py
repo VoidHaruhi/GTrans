@@ -351,6 +351,7 @@ class FeatAgent:
         print('Test accs:', accs)
         acc_te = eval_func(torch.cat(y_te_all, dim=0), torch.cat(out_te_all, dim=0))
         print(f'flatten test: {acc_te}')
+        return accs
 
     def get_perf(self, output, labels, mask):
         loss = F.nll_loss(output[mask], labels[mask])
